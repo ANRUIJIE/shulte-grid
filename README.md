@@ -4,7 +4,7 @@
 
 ## 在线访问
 
-**https://ANRUIJIE.github.io/vueDemo/**
+**https://ANRUIJIE.github.io/shulte-grid/**
 
 电脑打开后扫描页面二维码，即可用微信进入练习。
 
