@@ -1,9 +1,13 @@
-# 部署到 GitHub Pages（需先在 GitHub 创建空仓库 shulte-grid）
+# Deploy to GitHub Pages
+# Prerequisite: create empty repo at https://github.com/new named shulte-grid
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
 
-$token = Read-Host "请输入 GitHub Token（github_pat_...）"
-if (-not $token) { Write-Host "未输入 Token，退出"; exit 1 }
+$token = Read-Host "Enter GitHub Token (github_pat_...)"
+if (-not $token) {
+  Write-Host "No token provided. Exit."
+  exit 1
+}
 
 $headers = @{
   Authorization = "Bearer $token"
@@ -11,38 +15,36 @@ $headers = @{
   Accept        = "application/vnd.github+json"
 }
 
-Write-Host "`n检查仓库..."
+Write-Host ""
+Write-Host "Checking repository..."
 try {
   Invoke-RestMethod -Uri "https://api.github.com/repos/ANRUIJIE/shulte-grid" -Headers $headers | Out-Null
-  Write-Host "仓库已存在"
+  Write-Host "Repository found."
 } catch {
-  Write-Host "错误：仓库 ANRUIJIE/shulte-grid 不存在"
-  Write-Host "请先到 https://github.com/new 创建空仓库 shulte-grid（不要勾选 README）"
+  Write-Host "Error: repo ANRUIJIE/shulte-grid not found."
+  Write-Host "Create it at https://github.com/new (do not add README)."
   exit 1
 }
 
-Write-Host "推送代码..."
+Write-Host "Pushing code..."
 $env:GIT_TERMINAL_PROMPT = "0"
 git push "https://x-access-token:${token}@github.com/ANRUIJIE/shulte-grid.git" main
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-Write-Host "启用 GitHub Pages..."
+Write-Host "Enabling GitHub Pages..."
 try {
   $body = '{"build_type":"workflow"}'
   Invoke-RestMethod -Uri "https://api.github.com/repos/ANRUIJIE/shulte-grid/pages" -Headers $headers -Method Post -Body $body -ContentType "application/json" | Out-Null
-  Write-Host "Pages 已启用"
+  Write-Host "Pages enabled."
 } catch {
   $msg = $_.ErrorDetails.Message
   if ($msg -match "already exists") {
-    Write-Host "Pages 已配置过"
+    Write-Host "Pages already configured."
   } else {
-    Write-Host "Pages 配置: $msg"
+    Write-Host "Pages config note: $msg"
   }
 }
 
 Write-Host ""
-Write-Host "=========================================="
-Write-Host "  部署完成！约 1-2 分钟后可访问："
-Write-Host "  https://ANRUIJIE.github.io/shulte-grid/"
-Write-Host "  电脑打开后扫码，微信即可进入练习"
-Write-Host "=========================================="
+Write-Host "Done! Site will be live in 1-2 minutes:"
+Write-Host "https://ANRUIJIE.github.io/shulte-grid/"
