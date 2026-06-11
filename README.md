@@ -6,15 +6,12 @@
 
 **https://ANRUIJIE.github.io/shulte-grid/**
 
-电脑打开后扫描页面二维码，即可用微信进入练习。
+## 开启 GitHub Pages
 
-## 功能
-
-- 3×3 到 7×7 多种方格大小
-- 经典 / 倒序 / 颜色三种模式（默认颜色模式）
-- 整秒计时，记录最佳、平均用时
-- 隐藏入口查看每日成绩（右下角 ≡）
-- 移动端适配，微信内置浏览器可直接使用
+1. 打开 Settings → Pages
+2. Source 选 **Deploy from a branch**
+3. Branch 选 **main**，文件夹选 **/docs**
+4. 点 Save，等 1-2 分钟
 
 ## 本地运行（可选）
 
@@ -22,5 +19,3 @@
 npm install
 npm start
 ```
-
-浏览器访问 http://localhost:3456
