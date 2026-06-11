@@ -1,0 +1,13 @@
+{
+  "name": "shulte-grid",
+  "version": "1.0.0",
+  "description": "舒尔特方格练习小程序 - 支持微信扫码",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4"
+  }
+}
