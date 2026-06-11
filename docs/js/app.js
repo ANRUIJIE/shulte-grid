@@ -346,7 +346,7 @@
     return names[m] || '';
   }
 
-  const PAGES_URL = 'https://ANRUIJIE.github.io/shulte-grid/';
+  const PAGES_URL = 'https://anruijie.github.io/shulte-grid/';
 
   function getShareUrl() {
     const host = location.hostname;
@@ -357,22 +357,11 @@
     return `${location.origin}${path}/`;
   }
 
-  async function loadQRCode() {
+  function loadQRCode() {
     const url = getShareUrl();
     els.qrUrl.textContent = url;
-    if (typeof QRCode === 'undefined') {
-      els.qrImg.alt = '二维码加载失败';
-      return;
-    }
-    try {
-      const qrDataUrl = await QRCode.toDataURL(url, {
-        width: 280,
-        margin: 2,
-        color: { dark: '#1a1a2e', light: '#ffffff' },
-      });
-      els.qrImg.src = qrDataUrl;
-    } catch {
-      els.qrImg.alt = '二维码加载失败';
+    if (!els.qrImg.getAttribute('src')) {
+      els.qrImg.src = 'qr.png';
     }
   }
 
