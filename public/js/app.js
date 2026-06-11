@@ -346,7 +346,7 @@
     return names[m] || '';
   }
 
-  const PAGES_URL = 'https://ANRUIJIE.github.io/shulte-grid/';
+  const PAGES_URL = 'https://ANRUIJIE.github.io/vueDemo/';
 
   function getShareUrl() {
     const host = location.hostname;
