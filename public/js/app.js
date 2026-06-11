@@ -346,12 +346,31 @@
     return names[m] || '';
   }
 
+  const PAGES_URL = 'https://ANRUIJIE.github.io/shulte-grid/';
+
+  function getShareUrl() {
+    const host = location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || /^\d+\.\d+\.\d+\.\d+$/.test(host)) {
+      return PAGES_URL;
+    }
+    const path = location.pathname.replace(/index\.html$/, '').replace(/\/?$/, '');
+    return `${location.origin}${path}/`;
+  }
+
   async function loadQRCode() {
+    const url = getShareUrl();
+    els.qrUrl.textContent = url;
+    if (typeof QRCode === 'undefined') {
+      els.qrImg.alt = '二维码加载失败';
+      return;
+    }
     try {
-      const res = await fetch('/api/qrcode');
-      const data = await res.json();
-      els.qrImg.src = data.qrDataUrl;
-      els.qrUrl.textContent = data.url;
+      const qrDataUrl = await QRCode.toDataURL(url, {
+        width: 280,
+        margin: 2,
+        color: { dark: '#1a1a2e', light: '#ffffff' },
+      });
+      els.qrImg.src = qrDataUrl;
     } catch {
       els.qrImg.alt = '二维码加载失败';
     }
