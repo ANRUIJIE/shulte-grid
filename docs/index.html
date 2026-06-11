@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>舒尔特方格</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 首页 -->
+    <section id="home-view" class="view active">
+      <header class="header">
+        <h1>舒尔特方格</h1>
+        <p class="subtitle">按顺序点击数字，训练专注力</p>
+      </header>
+
+      <div class="qr-section" id="qr-section">
+        <p class="qr-label">微信扫码进入，随时随地练习</p>
+        <div class="qr-box">
+          <img id="qr-img" alt="扫码二维码" />
+          <p id="qr-url" class="qr-url"></p>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <label class="setting-row">
+          <span>方格大小</span>
+          <select id="grid-size">
+            <option value="3">3 × 3（入门）</option>
+            <option value="4">4 × 4（基础）</option>
+            <option value="5" selected>5 × 5（标准）</option>
+            <option value="6">6 × 6（进阶）</option>
+            <option value="7">7 × 7（挑战）</option>
+          </select>
+        </label>
+        <label class="setting-row">
+          <span>练习模式</span>
+          <select id="game-mode">
+            <option value="classic">经典模式</option>
+            <option value="reverse">倒序模式</option>
+            <option value="color" selected>颜色模式</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="stats-card">
+        <div class="stat-item">
+          <span class="stat-value" id="best-time">--</span>
+          <span class="stat-label">最佳用时</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="total-count">0</span>
+          <span class="stat-label">完成次数</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="avg-time">--</span>
+          <span class="stat-label">平均用时</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-start">开始练习</button>
+
+      <button type="button" id="daily-trigger" class="daily-trigger" aria-label="每日成绩">≡</button>
+    </section>
+
+    <!-- 游戏页 -->
+    <section id="game-view" class="view">
+      <div class="game-topbar">
+        <button class="btn-icon" id="btn-back" aria-label="返回">←</button>
+        <div class="game-info">
+          <span id="timer">0s</span>
+          <span class="divider">|</span>
+          <span>下一个: <strong id="next-num">1</strong></span>
+        </div>
+        <button class="btn-icon" id="btn-restart" aria-label="重新开始">↻</button>
+      </div>
+
+      <div id="grid-container" class="grid-container"></div>
+
+      <div class="game-hint" id="game-hint"></div>
+    </section>
+
+    <!-- 结果页 -->
+    <section id="result-view" class="view">
+      <div class="result-card">
+        <div class="result-icon" id="result-icon">🎉</div>
+        <h2 id="result-title">完成！</h2>
+        <p class="result-time" id="result-time">0 秒</p>
+        <p class="result-detail" id="result-detail"></p>
+        <div class="result-actions">
+          <button class="btn-primary" id="btn-again">再来一次</button>
+          <button class="btn-secondary" id="btn-home">返回首页</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 每日成绩（隐藏面板） -->
+  <div id="daily-overlay" class="daily-overlay hidden">
+    <div class="daily-panel">
+      <div class="daily-header">
+        <h3>每日成绩</h3>
+        <button type="button" id="daily-close" class="btn-icon" aria-label="关闭">×</button>
+      </div>
+      <ul id="daily-list" class="daily-list"></ul>
+      <p id="daily-empty" class="daily-empty hidden">暂无记录，完成一次练习后会自动保存</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
